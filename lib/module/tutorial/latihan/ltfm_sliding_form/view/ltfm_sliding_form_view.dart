@@ -28,8 +28,8 @@ class LtfmSlidingFormView extends StatefulWidget {
                 child: Container(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "Apply Leave",
                         style: TextStyle(
                           fontSize: 14.0,
@@ -56,6 +56,56 @@ class LtfmSlidingFormView extends StatefulWidget {
 
                       //! 6. Jika Container mengecil ketika tombol di klik
                       //? maka task ini selesai!
+                      InkWell(
+                        onTap: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2100),
+                          );
+                          print("pickedDate: $pickedDate");
+                          String formattedDate =
+                              DateFormat('yyyy-MM-dd').format(pickedDate!);
+                          controller.setState(() {
+                            controller.fromFilterController.text =
+                                formattedDate;
+                          });
+                        },
+                        child: TextFormField(
+                          controller: controller.fromFilterController,
+                          enabled: false,
+                          decoration: const InputDecoration(
+                            labelText: 'Leave Data',
+                            suffixIcon: Icon(Icons.date_range),
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        maxLines: 3,
+                        decoration: const InputDecoration(
+                          labelText: 'Reason',
+                          labelStyle: TextStyle(
+                            color: Colors.blueGrey,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.blueGrey,
+                            ),
+                          ),
+                          helperText: "Your reason",
+                        ),
+                        onChanged: (value) {},
+                      ),
+                      const SizedBox(height: 20),
+                      const Divider(thickness: 1),
+                      ElevatedButton(
+                        onPressed: () {
+                          controller.submitted = !controller.submitted;
+                          controller.update();
+                        },
+                        child: const Text('Submit'),
+                      ),
                     ],
                   ),
                 ),

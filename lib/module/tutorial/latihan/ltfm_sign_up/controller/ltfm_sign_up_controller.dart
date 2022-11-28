@@ -29,7 +29,7 @@ class LtfmSignUpController extends State<LtfmSignUpView>
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
-                Text('Login success!'),
+                Text('Sign up success!'),
               ],
             ),
           ),

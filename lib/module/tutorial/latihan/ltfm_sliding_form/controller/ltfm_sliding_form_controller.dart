@@ -7,9 +7,14 @@ class LtfmSlidingFormController extends State<LtfmSlidingFormView>
   static late LtfmSlidingFormController instance;
   late LtfmSlidingFormView view;
 
+  final fromFilterController = TextEditingController();
+  final toFilterController = TextEditingController();
+
   @override
   void initState() {
     instance = this;
+    fromFilterController.text = '2022-11-20';
+    toFilterController.text = '2022-11-20';
     super.initState();
   }
 

@@ -35,12 +35,71 @@ class LtfmFilterBottomSheetView extends StatefulWidget {
                               width: MediaQuery.of(context).size.width,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const <Widget>[
+                                children: <Widget>[
                                   //! 1. Buat datepicker:
                                   //? datepicker: "From"
                                   //? datepicker: "To"
                                   //! 2. Buat tombol dengan label "FILTER"
                                   //! 3. Ketika di klik, panggil Navigator.pop(context)
+                                  InkWell(
+                                    onTap: () async {
+                                      DateTime? pickedDate =
+                                          await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(2000),
+                                        lastDate: DateTime(2100),
+                                      );
+                                      print("pickedDate: $pickedDate");
+                                      String formattedDate =
+                                          DateFormat('yyyy-MM-dd')
+                                              .format(pickedDate!);
+                                      controller.setState(() {
+                                        controller.fromFilterController.text =
+                                            formattedDate;
+                                      });
+                                    },
+                                    child: TextFormField(
+                                      controller:
+                                          controller.fromFilterController,
+                                      enabled: false,
+                                      decoration: const InputDecoration(
+                                        labelText: 'from',
+                                        suffixIcon: Icon(Icons.date_range),
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () async {
+                                      DateTime? pickedDate =
+                                          await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(2000),
+                                        lastDate: DateTime(2100),
+                                      );
+                                      print("pickedDate: $pickedDate");
+                                      String formattedDate =
+                                          DateFormat('yyyy-MM-dd')
+                                              .format(pickedDate!);
+                                      controller.setState(() {
+                                        controller.toFilterController.text =
+                                            formattedDate;
+                                      });
+                                    },
+                                    child: TextFormField(
+                                      controller: controller.toFilterController,
+                                      enabled: false,
+                                      decoration: const InputDecoration(
+                                        labelText: 'to',
+                                        suffixIcon: Icon(Icons.date_range),
+                                      ),
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text('FILTER'),
+                                  ),
                                 ],
                               ),
                             ),

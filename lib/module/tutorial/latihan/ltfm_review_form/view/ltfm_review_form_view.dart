@@ -29,7 +29,41 @@ class LtfmReviewFormView extends StatefulWidget {
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: ListBody(
-                            children: const <Widget>[
+                            children: <Widget>[
+                              TextFormField(
+                                maxLines: 3,
+                                decoration: const InputDecoration(
+                                  labelText: 'Review',
+                                  labelStyle: TextStyle(
+                                    color: Colors.blueGrey,
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.blueGrey,
+                                    ),
+                                  ),
+                                  helperText: "Your review",
+                                ),
+                                onChanged: (value) {},
+                              ),
+                              RatingBar.builder(
+                                initialRating: 2.0,
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemSize: 28.0,
+                                itemBuilder: (context, _) => const Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                                onRatingUpdate: (rating) {},
+                              ),
+                              const SizedBox(height: 30),
+                              ElevatedButton(
+                                child: const Text('Review'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
                               //! 6. Pindahkan textarea review, ratingbar, dan tombol review
                               //!    yang berada di bawah ke dalam sini (di dalam children)
                               //! 7. Test fitur ini dengan klik tombol Rate di pojok kanan atas
